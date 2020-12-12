@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 
 class UserModel {
   String id;
@@ -29,4 +28,6 @@ class UserModel {
       FirebaseFirestore.instance.doc("users/$id");
 
   CollectionReference get cartReference => _userReference.collection("cart");
+
+  CollectionReference get orderReference => _userReference.collection("orders");
 }
