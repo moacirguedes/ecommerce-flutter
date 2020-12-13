@@ -53,8 +53,8 @@ class CheckoutView extends StatelessWidget {
                 height: 30,
               ),
               RaisedButton(
-                onPressed: () {
-                  _orderProvider.completeOrder(_cartProvider);
+                onPressed: () async {
+                  await _orderProvider.completeOrder(_cartProvider);
                   Navigator.of(context).pushNamed(Routes.HOME);
                 },
                 elevation: 0,

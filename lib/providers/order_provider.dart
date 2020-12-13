@@ -15,10 +15,10 @@ class OrderProvider extends ChangeNotifier {
   }
 
   void updateUser(UserProvider userProvider) async {
-    user = await userProvider.user;
+    user = userProvider.user;
     orders.clear();
     if (user != null) {
-      loadOrders();
+      await loadOrders();
     }
   }
 
@@ -42,6 +42,8 @@ class OrderProvider extends ChangeNotifier {
         cartProvider.user.orderReference
             .add(newOrder.toOrderMap())
             .then((doc) => doc.id);
+
+        await loadOrders();
       } catch (e) {}
     }
   }
