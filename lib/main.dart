@@ -54,8 +54,10 @@ class MyApp extends StatelessWidget {
               _cartProvider..updateUser(_userProvider),
           lazy: false,
         ),
-        ChangeNotifierProvider(
+        ChangeNotifierProxyProvider<UserProvider, OrderProvider>(
           create: (_) => new OrderProvider(),
+          update: (_, _userProvider, _orderProvider) =>
+              _orderProvider..updateUser(_userProvider),
           lazy: false,
         ),
       ],

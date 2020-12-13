@@ -10,7 +10,25 @@ class OrderProvider extends ChangeNotifier {
   List<OrderModel> orders = [];
   UserModel user;
 
-  OrderProvider();
+  OrderProvider() {
+    loadOrders();
+  }
+
+  void updateUser(UserProvider userProvider) async {
+    user = await userProvider.user;
+    orders.clear();
+    if (user != null) {
+      loadOrders();
+    }
+  }
+
+  Future<void> loadOrders() async {
+    try {
+      final QuerySnapshot orderSnap = await user.orderReference.get();
+      orders =
+          orderSnap.docs.map((doc) => OrderModel.fromDocument(doc)).toList();
+    } catch (e) {}
+  }
 
   Future<void> completeOrder(CartProvider cartProvider) async {
     if (cartProvider.user != null && cartProvider.totalPrice > 0.0) {
